@@ -10,9 +10,10 @@ import SwiftUI
 struct CalendarView: View {
     @State private var color: Color = .blue
     @State private var date = Date.now
+    @State private var days: [Date] = []
+
     let daysOfWeek = Date.capitalizedFirstLetterOfWeekdays
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
-    let days = 1..<32
 
     var body: some View {
         VStack {
@@ -34,7 +35,7 @@ struct CalendarView: View {
 
             LazyVGrid(columns: columns) {
                 ForEach(days, id: \.self) { day in
-                    Text("\(day)")
+                    Text(day.formatted(.dateTime.day()))
                         .fontWeight(.bold)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, minHeight: 40)
