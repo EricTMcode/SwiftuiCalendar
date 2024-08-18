@@ -35,19 +35,31 @@ struct CalendarView: View {
 
             LazyVGrid(columns: columns) {
                 ForEach(days, id: \.self) { day in
-                    Text(day.formatted(.dateTime.day()))
-                        .fontWeight(.bold)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, minHeight: 40)
-                        .background(
-                            Circle()
-                                .foregroundStyle(color.opacity(0.3))
-                        )
+                    if day.monthInt != date.monthInt {
+                        Text("")
+                    } else {
+                        Text(day.formatted(.dateTime.day()))
+                            .fontWeight(.bold)
+                            .foregroundStyle(.secondary)
+                            .frame(maxWidth: .infinity, minHeight: 40)
+                            .background(
+                                Circle()
+                                    .foregroundStyle(
+                                        Date.now.startOfDay == day.startOfDay ? .red.opacity(0.3) : color.opacity(0.3)
+                                    )
+                            )
+                    }
                 }
             }
 
         }
         .padding()
+        .onAppear {
+            days = date.calendarDisplayDays
+        }
+        .onChange(of: date) {
+            days = date.calendarDisplayDays
+        }
     }
 }
 
