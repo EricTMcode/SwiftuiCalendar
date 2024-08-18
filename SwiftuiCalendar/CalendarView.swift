@@ -10,7 +10,9 @@ import SwiftUI
 struct CalendarView: View {
     @State private var color: Color = .blue
     @State private var date = Date.now
-    let daysOfWeek = ["M", "T", ]
+    let daysOfWeek = Date.capitalizedFirstLetterOfWeekdays
+    let columns = Array(repeating: GridItem(.flexible()), count: 7)
+    let days = 1..<32
 
     var body: some View {
         VStack {
@@ -20,6 +22,29 @@ struct CalendarView: View {
             LabeledContent("Date/Time") {
                 DatePicker("", selection: $date)
             }
+
+            HStack {
+                ForEach(daysOfWeek.indices, id: \.self) { index in
+                    Text(daysOfWeek[index])
+                        .fontWeight(.black)
+                        .foregroundStyle(color)
+                        .frame(maxWidth: .infinity)
+                }
+            }
+
+            LazyVGrid(columns: columns) {
+                ForEach(days, id: \.self) { day in
+                    Text("\(day)")
+                        .fontWeight(.bold)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, minHeight: 40)
+                        .background(
+                            Circle()
+                                .foregroundStyle(color.opacity(0.3))
+                        )
+                }
+            }
+
         }
         .padding()
     }
