@@ -17,17 +17,38 @@ struct CalendarView: View {
 
     var body: some View {
         VStack {
-            LabeledContent("Calendar Color") {
-                ColorPicker("", selection: $color, supportsOpacity: false)
+//            LabeledContent("Calendar Color") {
+//                ColorPicker("", selection: $color, supportsOpacity: false)
+//            }
+//            LabeledContent("Date/Time") {
+//                DatePicker("", selection: $date)
+//            }
+            
+            HStack {
+                Button {
+
+                } label: {
+                    Image(systemName: "chevron.left")
+                }
+
+                Spacer()
+
+                Text(date.previousMonth)
+
+                Spacer()
+
+                Button {
+
+                } label: {
+                    Image(systemName: "chevron.right")
+                }
             }
-            LabeledContent("Date/Time") {
-                DatePicker("", selection: $date)
-            }
+            .padding()
 
             HStack {
                 ForEach(daysOfWeek.indices, id: \.self) { index in
                     Text(daysOfWeek[index])
-                        .fontWeight(.black)
+                        .fontWeight(.medium)
                         .foregroundStyle(color)
                         .frame(maxWidth: .infinity)
                 }

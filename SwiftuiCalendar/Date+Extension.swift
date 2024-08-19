@@ -13,8 +13,10 @@ extension Date {
         let weekdays = calendar.shortWeekdaySymbols
 
         return weekdays.map { weekday in
-            guard let firstLetter = weekday.first else { return "" }
-            return String(firstLetter).capitalized
+//            guard let firstLetter = weekday.first else { return "" }
+//            return String(firstLetter).capitalized
+            let firstThreeLetters = weekday.prefix(3)
+            return String(firstThreeLetters).uppercased()
         }
     }
 
@@ -27,6 +29,32 @@ extension Date {
             let date = Calendar.current.date(from: DateComponents(year: 2000, month: month, day: 1))
             return date.map { dateFormatter.string(from: $0) }
         }
+    }
+
+    var currentMonth: String {
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM yyyy"
+
+        return dateFormatter.string(from: date)
+    }
+
+    var nextMonth: String {
+        let date = Date()
+        let nextMonthDate = Calendar.current.date(byAdding: .month, value: 1, to: date)!
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "MMMM yyyy"
+        return dateFormatter.string(from: nextMonthDate)
+    }
+
+    var previousMonth: String {
+        let date = Date()
+        let nextMonthDate = Calendar.current.date(byAdding: .month, value: -1, to: date)!
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "MMMM yyyy"
+        return dateFormatter.string(from: nextMonthDate)
     }
 
     var startOfMonth: Date {
