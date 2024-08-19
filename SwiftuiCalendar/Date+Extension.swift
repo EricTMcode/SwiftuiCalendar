@@ -41,10 +41,22 @@ extension Date {
 
     func monthName() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM"
+        formatter.dateFormat = "MMMM yyyy"
 
         return formatter.string(from: self)
 
+    }
+
+    mutating func incrementMonth() {
+        if let newDate = Calendar.current.date(byAdding: .month, value: 1, to: self) {
+            self = newDate
+        }
+    }
+
+    mutating func decrementMonth() {
+        if let newDate = Calendar.current.date(byAdding: .month, value: -1, to: self) {
+            self = newDate
+        }
     }
 
     var startOfMonth: Date {

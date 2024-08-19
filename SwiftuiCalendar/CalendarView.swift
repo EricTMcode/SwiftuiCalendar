@@ -17,16 +17,9 @@ struct CalendarView: View {
 
     var body: some View {
         VStack {
-//            LabeledContent("Calendar Color") {
-//                ColorPicker("", selection: $color, supportsOpacity: false)
-//            }
-            LabeledContent("Date/Time") {
-                DatePicker("", selection: $date)
-            }
-            
             HStack {
                 Button {
-                    decrementMonth()
+                    date.decrementMonth()
                 } label: {
                     Image(systemName: "chevron.left")
                 }
@@ -34,22 +27,27 @@ struct CalendarView: View {
                 Spacer()
 
                 Text(date.monthName())
+                    .font(.title2)
+                    .fontDesign(.rounded)
+                    .bold()
+
 
                 Spacer()
 
                 Button {
-                    incrementMonth()
+                    date.incrementMonth()
                 } label: {
                     Image(systemName: "chevron.right")
                 }
             }
+            .foregroundStyle(.white)
             .padding()
 
             HStack {
                 ForEach(daysOfWeek.indices, id: \.self) { index in
                     Text(daysOfWeek[index])
                         .fontWeight(.medium)
-                        .foregroundStyle(color)
+                        .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                 }
             }
@@ -61,20 +59,21 @@ struct CalendarView: View {
                     } else {
                         Text(day.formatted(.dateTime.day()))
                             .fontWeight(.bold)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(.white)
                             .frame(maxWidth: .infinity, minHeight: 40)
                             .background(
                                 Circle()
                                     .foregroundStyle(
-                                        Date.now.startOfDay == day.startOfDay ? .red.opacity(0.3) : color.opacity(0.3)
+                                        Date.now.startOfDay == day.startOfDay ? .red.opacity(0.3) : .clear
                                     )
                             )
                     }
                 }
             }
-
         }
-        .padding()
+        .frame(maxWidth: .infinity, maxHeight: 400)
+        .background(RoundedRectangle(cornerRadius: 24)
+            .fill(Color(.purple)))
         .onAppear {
             days = date.calendarDisplayDays
         }
@@ -82,20 +81,9 @@ struct CalendarView: View {
             days = date.calendarDisplayDays
         }
     }
-
-    func incrementMonth() {
-        if let newDate = Calendar.current.date(byAdding: .month, value: 1, to: date) {
-            date = newDate
-        }
-    }
-
-    func decrementMonth() {
-        if let newDate = Calendar.current.date(byAdding: .month, value: -1, to: date) {
-            date = newDate
-        }
-    }
 }
 
 #Preview {
     CalendarView()
+        .padding()
 }
