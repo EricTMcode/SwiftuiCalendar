@@ -39,32 +39,12 @@ extension Date {
         return dateFormatter.string(from: date)
     }
 
-//    var nextMonth: String {
-//        let date = Date()
-//        let nextMonthDate = Calendar.current.date(byAdding: .month, value: 1, to: date)!
-//        let dateFormatter = DateFormatter()
-//
-//        dateFormatter.dateFormat = "MMMM yyyy"
-//        return dateFormatter.string(from: nextMonthDate)
-//    }
+    func monthName() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM"
 
-//    var previousMonth: String {
-//        let date = Date()
-//        let nextMonthDate = Calendar.current.date(byAdding: .month, value: -1, to: date)!
-//        let dateFormatter = DateFormatter()
-//
-//        dateFormatter.dateFormat = "MMMM yyyy"
-//        return dateFormatter.string(from: nextMonthDate)
-//    }
+        return formatter.string(from: self)
 
-    var nextMonth: Date {
-        let date = Date()
-        return Calendar.current.date(byAdding: .month, value: 1, to: date)!
-    }
-
-    var previousMonth: Date {
-        let date = Date()
-        return Calendar.current.date(byAdding: .month, value: -1, to: date)!
     }
 
     var startOfMonth: Date {

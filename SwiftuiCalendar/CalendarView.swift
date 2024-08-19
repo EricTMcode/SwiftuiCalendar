@@ -26,19 +26,19 @@ struct CalendarView: View {
             
             HStack {
                 Button {
-                    date = date.previousMonth
+                    decrementMonth()
                 } label: {
                     Image(systemName: "chevron.left")
                 }
 
                 Spacer()
 
-                Text(date.currentMonth)
+                Text(date.monthName())
 
                 Spacer()
 
                 Button {
-                    date = date.nextMonth
+                    incrementMonth()
                 } label: {
                     Image(systemName: "chevron.right")
                 }
@@ -80,6 +80,18 @@ struct CalendarView: View {
         }
         .onChange(of: date) {
             days = date.calendarDisplayDays
+        }
+    }
+
+    func incrementMonth() {
+        if let newDate = Calendar.current.date(byAdding: .month, value: 1, to: date) {
+            date = newDate
+        }
+    }
+
+    func decrementMonth() {
+        if let newDate = Calendar.current.date(byAdding: .month, value: -1, to: date) {
+            date = newDate
         }
     }
 }
