@@ -39,22 +39,32 @@ extension Date {
         return dateFormatter.string(from: date)
     }
 
-    var nextMonth: String {
-        let date = Date()
-        let nextMonthDate = Calendar.current.date(byAdding: .month, value: 1, to: date)!
-        let dateFormatter = DateFormatter()
+//    var nextMonth: String {
+//        let date = Date()
+//        let nextMonthDate = Calendar.current.date(byAdding: .month, value: 1, to: date)!
+//        let dateFormatter = DateFormatter()
+//
+//        dateFormatter.dateFormat = "MMMM yyyy"
+//        return dateFormatter.string(from: nextMonthDate)
+//    }
 
-        dateFormatter.dateFormat = "MMMM yyyy"
-        return dateFormatter.string(from: nextMonthDate)
+//    var previousMonth: String {
+//        let date = Date()
+//        let nextMonthDate = Calendar.current.date(byAdding: .month, value: -1, to: date)!
+//        let dateFormatter = DateFormatter()
+//
+//        dateFormatter.dateFormat = "MMMM yyyy"
+//        return dateFormatter.string(from: nextMonthDate)
+//    }
+
+    var nextMonth: Date {
+        let date = Date()
+        return Calendar.current.date(byAdding: .month, value: 1, to: date)!
     }
 
-    var previousMonth: String {
+    var previousMonth: Date {
         let date = Date()
-        let nextMonthDate = Calendar.current.date(byAdding: .month, value: -1, to: date)!
-        let dateFormatter = DateFormatter()
-
-        dateFormatter.dateFormat = "MMMM yyyy"
-        return dateFormatter.string(from: nextMonthDate)
+        return Calendar.current.date(byAdding: .month, value: -1, to: date)!
     }
 
     var startOfMonth: Date {

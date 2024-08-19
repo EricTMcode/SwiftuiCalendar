@@ -20,25 +20,25 @@ struct CalendarView: View {
 //            LabeledContent("Calendar Color") {
 //                ColorPicker("", selection: $color, supportsOpacity: false)
 //            }
-//            LabeledContent("Date/Time") {
-//                DatePicker("", selection: $date)
-//            }
+            LabeledContent("Date/Time") {
+                DatePicker("", selection: $date)
+            }
             
             HStack {
                 Button {
-
+                    date = date.previousMonth
                 } label: {
                     Image(systemName: "chevron.left")
                 }
 
                 Spacer()
 
-                Text(date.previousMonth)
+                Text(date.currentMonth)
 
                 Spacer()
 
                 Button {
-
+                    date = date.nextMonth
                 } label: {
                     Image(systemName: "chevron.right")
                 }
